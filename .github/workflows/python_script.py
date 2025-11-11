@@ -16,7 +16,7 @@ def set_var():
 	global token
 	global PRurl
 	global files
-	username = TheGiraffe3
+	username = 'TheGiraffe3'
 	token = os.environ['GITHUB_TOKEN']
 	PRurl = 'https://github.com/endless-sky/endless-sky/pull/'
 
