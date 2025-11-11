@@ -31,6 +31,7 @@ def get_files():
 	for i in range(1, 100):
 		response = requests.get('https://api.github.com/repos/' + repo + '/pulls/' + PR + '/files?page=' + str(i) + '&per_page=100', auth=(username, token))
 		data = response.json()
+		print(data)
 		if len(data) == 0:
 			break 
 		# for each file
