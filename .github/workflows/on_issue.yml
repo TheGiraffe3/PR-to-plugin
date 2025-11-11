@@ -1,0 +1,47 @@
+name: Download PR Files
+
+on: 
+  issues: 
+    types: 
+      - opened
+
+jobs:
+  createplugin:
+    name: Create Plugin
+    runs-on: ubuntu-latest
+    concurrency:
+      group: push-branch-${{ github.ref }}
+      cancel-in-progress: false
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 2
+      - name: Install libraries
+        run: |
+          python3 -m pip install Pillow
+      - name: Create plugin
+        run: |
+          PR_NUMBER="${{ github.event.issue.body }}" python3 .github/workflows/python_script.py
+      - name: Commit plugin
+        run: |
+          git config user.name "script" 
+          git config user.email "<>"
+          git add .
+          git commit -m "Generated Plugin"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true 
+#      - if: contains(github.event.issue.labels.*.name, 'autoclose')
+#        name: Close Issue
+#        uses: peter-evans/close-issue@v3
+#      - name: Upload plugins to release (versioning)
+#        uses: ncipollo/release-action@v1.11.1
+#        with:
+#          tag: Latest
+#          allowUpdates: true
+#          replacesArtifacts: true
+#          updateOnlyUnreleased: false
+#          artifacts: "*.zip"
