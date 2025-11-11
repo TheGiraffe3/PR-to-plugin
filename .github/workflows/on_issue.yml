@@ -30,16 +30,6 @@ jobs:
         run: |
           git config user.name "script" 
           git config user.email "<>"
-          rm -r .github/*
-          rm -r docs/*
-          rm -r icons/*
-          rm -r installer/*
-          rm -r overlays/*
-          rm -r resources/*
-          rm -r source/*
-          rm -r steam/*
-          rm -r tests/*
-          rm -r utils/*
           git add .
           git commit -m "Generated Plugin"
       - name: Push changes
