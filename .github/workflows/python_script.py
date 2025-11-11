@@ -55,7 +55,7 @@ def get_files():
 				r.raw.decode_content = True
 				shutil.copyfileobj(r.raw, target)
 	with open(os.environ['PR_NUMBER'], 'a') as fh:
-    print(f'{PR}', file=fh)
+    	print(f'{PR}', file=fh)
 				
 
 def run():
