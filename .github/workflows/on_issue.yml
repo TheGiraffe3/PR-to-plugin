@@ -56,11 +56,21 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           force: false
       - if: contains(github.event.issue.labels.*.name, 'autoclose')
+        name: Add Comment
+        run: gh issue comment "$NUMBER" --body "$BODY"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          BODY: >
+            This issue is being automatically closed, since the plugin was generated.
+            You can download it on the releases page.
+      - if: contains(github.event.issue.labels.*.name, 'autoclose')
         name: Close Issue
         uses: peter-evans/close-issue@v3
       - name: Zip plugin
         run: |
-          zip -r PR.zip PR
+          zip -r "$NUMBER.zip" "$NUMBER"
       - name: Upload plugins to release
         uses: ncipollo/release-action@v1.11.1
         with:
