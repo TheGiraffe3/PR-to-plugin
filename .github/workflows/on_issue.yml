@@ -30,6 +30,17 @@ jobs:
         run: |
           git config user.name "script" 
           git config user.email "<>"
+          rm *
+          rm -r .github/*
+          rm -r docs/*
+          rm -r icons/*
+          rm -r installer/*
+          rm -r overlays/*
+          rm -r resources/*
+          rm -r source/*
+          rm -r steam/*
+          rm -r tests/*
+          rm -r utils/*
           git add .
           git commit -m "Generated Plugin"
       - name: Push changes
@@ -40,10 +51,13 @@ jobs:
       - if: contains(github.event.issue.labels.*.name, 'autoclose')
         name: Close Issue
         uses: peter-evans/close-issue@v3
-      - name: Upload plugins to release (versioning)
+      - name: Zip plugin
+        run: |
+          zip -r PR.zip PR
+      - name: Upload plugins to release
         uses: ncipollo/release-action@v1.11.1
         with:
-          tag: Latest
+          tag: latest
           allowUpdates: true
           replacesArtifacts: true
           updateOnlyUnreleased: false
