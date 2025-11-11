@@ -29,9 +29,9 @@ def get_files():
 	issuesplitted = issue.split('\n')
 	if issuesplitted[0] == '### Number':
 		print('		SUCCESS: Newly created issue is a plugin generation request.')
-		print(issuesplitted[2])
-#	print('PR NUMBER TO DOWNLOAD:')
-#	print(PR)
+	print('PR NUMBER TO DOWNLOAD:')
+	PR = issuesplitted[2]
+	print(PR)
 	# get file urls from github api
 	count = 0
 	for i in range(1, 100):
