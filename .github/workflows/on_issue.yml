@@ -57,8 +57,10 @@ jobs:
         id: pr_number
       - name: Zip plugin
         run: |
-          ls
-          zip -r "PR-${{ steps.pr_number.outputs.contents }}.zip" "${{ steps.pr_number.outputs.contents }}"
+          PR_NUM="${{ steps.pr_number.outputs.contents }}"
+          PR_NUM=$(echo "$PR_NUM" | tr -d '\n' | tr -d '\r')
+          echo "Zipping folder: '$PR_NUM'"
+          zip -r "PR-$PR_NUM.zip" "$PR_NUM"
       - name: Upload plugins to release
         uses: ncipollo/release-action@v1.11.1
         with:
