@@ -55,11 +55,9 @@ jobs:
         with:
           path: 'PR_NUMBER'
         id: pr_number
-      - name: Use the variable
-        run: echo "File content: ${{ steps.pr_number.outputs.contents }}"
       - name: Zip plugin
         run: |
-          zip -r pr_number.zip pr_number
+          zip -r ${{ steps.pr_number.outputs.contents }}.zip ${{ steps.pr_number.outputs.contents }}
       - name: Upload plugins to release
         uses: ncipollo/release-action@v1.11.1
         with:
