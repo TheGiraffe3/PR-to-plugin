@@ -51,6 +51,11 @@ jobs:
       - if: contains(github.event.issue.labels.*.name, 'autoclose')
         name: Close Issue
         uses: peter-evans/close-issue@v3
+      - name: Get requested PR
+        uses: andstor/file-reader-action@v1
+        with:
+          path: 'PR_NUMBER'
+        id: pr_number
       - name: Zip plugin
         run: |
           PR_NUM="${{ steps.pr_number.outputs.contents }}"
