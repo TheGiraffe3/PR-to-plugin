@@ -5,6 +5,13 @@ on:
     types: 
       - opened
       - reopened
+  workflow_dispatch:
+    inputs:
+      PR:
+        description: "PR to download"
+        required: true
+        default: "9172"
+        type: string
 
 jobs:
   createplugin:
