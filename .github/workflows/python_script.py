@@ -16,8 +16,8 @@ def set_var():
 	global token
 	global PRurl
 	global files
-	username = '' # insert your github name, increases the api request limit, most of the time not needed
-	token = '' # insert your github token,  increases the api request limit, most of the time not needed
+	username = os.getenv("GITHUB_ACTOR", "")  # Get the GitHub Actions username (default to empty string if not found)
+	token = os.getenv("GITHUB_TOKEN", "")     # Get the GitHub token (default to empty string if not found)
 	PRurl = 'https://github.com/endless-sky/endless-sky/pull/' # i.e. 'https://github.com/endless-sky/endless-sky/pull/8949'
 
 		
@@ -29,8 +29,8 @@ def get_files():
 	# get file urls from github api
 	count = 0
 	for i in range(1, 100):
-		username = os.getenv("GITHUB_ACTOR", "")  # Get the GitHub Actions username (default to empty string if not found)
-		token = os.getenv("GITHUB_TOKEN", "")     # Get the GitHub token (default to empty string if not found)
+		auth = (username, token) if username and token else None
+		response = requests.get(api_url, auth=auth)
 		data = response.json()
 		if len(data) == 0:
 			break 
