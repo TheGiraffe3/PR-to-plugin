@@ -18,14 +18,14 @@ def set_var():
 	global files
 	username = '' # insert your github name, increases the api request limit, most of the time not needed
 	token = '' # insert your github token,  increases the api request limit, most of the time not needed
-	PRurl = 'https://github.com/endless-sky/endless-sky/pull/9172' # i.e. 'https://github.com/endless-sky/endless-sky/pull/8949'
+	PRurl = 'https://github.com/endless-sky/endless-sky/pull/' # i.e. 'https://github.com/endless-sky/endless-sky/pull/8949'
 
 		
 def get_files():
 	# cut PRurl
 	splitted = PRurl.split('/')
 	repo = splitted[3] + '/' + splitted[4]
-	PR = splitted[6]
+	PR = os.environ['PR_NUMBER']
 	# get file urls from github api
 	count = 0
 	for i in range(1, 100):
