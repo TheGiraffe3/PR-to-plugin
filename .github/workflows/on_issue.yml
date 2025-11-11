@@ -1,9 +1,10 @@
-name: Download PR Files
+name: Create Plugin
 
 on: 
   issues: 
     types: 
       - opened
+      - reopened
 
 jobs:
   createplugin:
@@ -21,6 +22,8 @@ jobs:
         run: |
           python3 -m pip install Pillow
       - name: Create plugin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_NUMBER="${{ github.event.issue.body }}" python3 .github/workflows/python_script.py
       - name: Commit plugin
