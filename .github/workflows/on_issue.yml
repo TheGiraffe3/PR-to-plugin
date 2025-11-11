@@ -57,6 +57,7 @@ jobs:
         id: pr_number
       - name: Zip plugin
         run: |
+          ls
           zip -r PR-${{ steps.pr_number.outputs.contents }}.zip ${{ steps.pr_number.outputs.contents }}
       - name: Upload plugins to release
         uses: ncipollo/release-action@v1.11.1
