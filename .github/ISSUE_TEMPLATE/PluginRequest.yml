@@ -3,16 +3,16 @@ description: Submit a new Plugin Generation Request
 labels: autoclose
 title: Plugin Generation Request
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Welcome to the Plugin Generation form.
-        Change the field to the number of the pull request you want to turn into a plugin (e.g. 9172, 11347).
-        The PR must be a content pull request.
-  - type: input
-    attributes:
-      label: Number
-      description: Enter the pull request number.
-      value: 9172
-    validations:
-      required: true
+- type: markdown
+  attributes:
+    value: |
+      "Welcome to the Plugin Generation form."
+      "Change the field to the number of the pull request you want to turn into a plugin (e.g. 9172, 11347)."
+      "The PR must be a content pull request, or the script will not work."
+- type: input
+  attributes:
+    label: "Number"
+    description: Enter the pull request number.
+    value: 9172
+  validations:
+    required: true
