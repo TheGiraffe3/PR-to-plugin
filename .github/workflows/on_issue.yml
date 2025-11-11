@@ -36,15 +36,15 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          force: true 
-#      - if: contains(github.event.issue.labels.*.name, 'autoclose')
-#        name: Close Issue
-#        uses: peter-evans/close-issue@v3
-#      - name: Upload plugins to release (versioning)
-#        uses: ncipollo/release-action@v1.11.1
-#        with:
-#          tag: Latest
-#          allowUpdates: true
-#          replacesArtifacts: true
-#          updateOnlyUnreleased: false
-#          artifacts: "*.zip"
+          force: false
+      - if: contains(github.event.issue.labels.*.name, 'autoclose')
+        name: Close Issue
+        uses: peter-evans/close-issue@v3
+      - name: Upload plugins to release (versioning)
+        uses: ncipollo/release-action@v1.11.1
+        with:
+          tag: Latest
+          allowUpdates: true
+          replacesArtifacts: true
+          updateOnlyUnreleased: false
+          artifacts: "*.zip"
