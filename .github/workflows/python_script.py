@@ -54,6 +54,8 @@ def get_files():
 				r = requests.get(blob_url, allow_redirects=True, stream = True)
 				r.raw.decode_content = True
 				shutil.copyfileobj(r.raw, target)
+	with open(os.environ['PR_NUMBER'], 'a') as fh:
+    print(f'{PR}', file=fh)
 				
 
 def run():

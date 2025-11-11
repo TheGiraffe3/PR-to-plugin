@@ -50,9 +50,16 @@ jobs:
       - if: contains(github.event.issue.labels.*.name, 'autoclose')
         name: Close Issue
         uses: peter-evans/close-issue@v3
+      - name: Get requested PR
+        uses: andstor/file-reader-action@v1
+        with:
+          path: 'PR_NUMBER'
+        id: pr_number
+      - name: Use the variable
+        run: echo "File content: ${{ steps.pr_number.outputs.contents }}"
       - name: Zip plugin
         run: |
-          zip -r "$NUMBER.zip" "$NUMBER"
+          zip -r pr_number.zip pr_number
       - name: Upload plugins to release
         uses: ncipollo/release-action@v1.11.1
         with:
