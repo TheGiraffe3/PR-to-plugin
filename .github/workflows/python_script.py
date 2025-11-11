@@ -25,7 +25,11 @@ def get_files():
 	# cut PRurl
 	splitted = PRurl.split('/')
 	repo = splitted[3] + '/' + splitted[4]
-	PR = os.environ['PR_NUMBER']
+	issue = os.environ['PR_NUMBER']
+	splitted = issue.split('\n')
+	if splitted[0] == '### Number':
+		print('		SUCCESS: Newly created issue is a plugin generation request.')
+		PR = splitted[1].strip()
 	# get file urls from github api
 	count = 0
 	for i in range(1, 100):
