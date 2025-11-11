@@ -26,31 +26,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_NUMBER="${{ github.event.issue.body }}" python3 .github/workflows/python_script.py
-      - name: Commit plugin
-        run: |
-          git config user.name "script" 
-          git config user.email "<>"
-          git pull
-          git add .
-          git commit -m "Generated Plugin"
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          force: false
-      - if: contains(github.event.issue.labels.*.name, 'autoclose')
-        name: Add Comment
-        run: gh issue comment "$NUMBER" --body "$BODY"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
-          NUMBER: ${{ github.event.issue.number }}
-          BODY: >
-            This issue is being automatically closed, since the plugin was generated.
-            You can download it on the releases page.
-      - if: contains(github.event.issue.labels.*.name, 'autoclose')
-        name: Close Issue
-        uses: peter-evans/close-issue@v3
       - name: Get requested PR
         uses: andstor/file-reader-action@v1
         with:
@@ -70,3 +45,16 @@ jobs:
           replacesArtifacts: true
           updateOnlyUnreleased: false
           artifacts: "*.zip"
+      - if: contains(github.event.issue.labels.*.name, 'autoclose')
+        name: Add Comment
+        run: gh issue comment "$NUMBER" --body "$BODY"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          BODY: >
+            The plugin was generated, so this issue is being automatically closed.
+            You can download it on the [release page](https://github.com/TheGiraffe3/PR-to-plugin/releases/tag/latest).
+      - if: contains(github.event.issue.labels.*.name, 'autoclose')
+        name: Close Issue
+        uses: peter-evans/close-issue@v3
