@@ -5,13 +5,6 @@ on:
     types: 
       - opened
       - reopened
-  workflow_dispatch:
-    inputs:
-      PR:
-        description: "PR to download"
-        required: true
-        default: "9172"
-        type: string
 
 jobs:
   createplugin:
@@ -37,7 +30,6 @@ jobs:
         run: |
           git config user.name "script" 
           git config user.email "<>"
-          rm *
           rm -r .github/*
           rm -r docs/*
           rm -r icons/*
