@@ -18,6 +18,5 @@ body:
       label: "Number"
       description: "Enter the pull request number."
       placeholder: "e.g. 9172"
-      value: ""
     validations:
       required: true
