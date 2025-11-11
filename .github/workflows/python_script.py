@@ -16,9 +16,9 @@ def set_var():
 	global token
 	global PRurl
 	global files
-	username = os.getenv("GITHUB_ACTOR", "")  # Get the GitHub Actions username (default to empty string if not found)
-	token = os.getenv("GITHUB_TOKEN", "")     # Get the GitHub token (default to empty string if not found)
-	PRurl = 'https://github.com/endless-sky/endless-sky/pull/' # i.e. 'https://github.com/endless-sky/endless-sky/pull/8949'
+	username = TheGiraffe3
+	token = os.environ['GITHUB_TOKEN']
+	PRurl = 'https://github.com/endless-sky/endless-sky/pull/'
 
 		
 def get_files():
@@ -29,12 +29,8 @@ def get_files():
 	# get file urls from github api
 	count = 0
 	for i in range(1, 100):
-		if username == '' or token == '':
-			response = requests.get('https://api.github.com/repos/' + repo + '/pulls/' + PR + '/files?page=' + str(i) + '&per_page=100')
-			data = response.json()
-		else:
-			response = requests.get('https://api.github.com/repos/' + repo + '/pulls/' + PR + '/files?page=' + str(i) + '&per_page=100', auth=(username, token))
-			data = response.json()
+		response = requests.get('https://api.github.com/repos/' + repo + '/pulls/' + PR + '/files?page=' + str(i) + '&per_page=100', auth=(username, token))
+		data = response.json()
 		if len(data) == 0:
 			break 
 		# for each file
