@@ -29,9 +29,10 @@ def get_files():
 	# get file urls from github api
 	count = 0
 	for i in range(1, 100):
-		auth = (username, token) if username and token else None
-		response = requests.get(api_url, auth=auth)
-		data = response.json()
+		if username == '' or token == '':
+			response = requests.get('https://api.github.com/repos/' + repo + '/pulls/' + PR + '/files?page=' + str(i) + '&per_page=100')
+		else:
+			response = requests.get('https://api.github.com/repos/' + repo + '/pulls/' + PR + '/files?page=' + str(i) + '&per_page=100', auth=(username, token))		data = response.json()
 		if len(data) == 0:
 			break 
 		# for each file
